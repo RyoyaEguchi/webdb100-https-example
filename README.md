@@ -10,7 +10,9 @@
 1. Amazon Elasticsearch Service において domain を作成します。
 2. Amazon Kinesis Firehose の Delivery Stream を作成し、1. で作成した Elasticsearch domain に関連付けます。
 3. AWS Lambda の Lambda function を作成し、 lambda_function.py の内容をペーストします。このサンプルコードは Python 2.7 環境にて動作を確認しています。
-4. 作成した Lambda function を関連付けた API を API Gateway において作成すると、 CSP を受信し Elasticsearch Service に送信することができます。
+4. Lambda function を実行する IAM Role が 2. で作成した Kinesis Firehose の Delivery Stream に PutRecord できるように IAM Policy を記述します。
+5. Amazon API Gateway において API を作成し、任意の Resource に POST メソッドを作成します。
+6. 作成したメソッドに3.で作成した Lambda function を紐付けることで、 CSP を受信し Elasticsearch Service に送信することができます。
 
 ## 必要な設定
 ### ソースコード内の設定
@@ -27,7 +29,8 @@ firehose_stream_name = "csp-report"
 
 ### API Gateway の設定
 API Gateway から Lambda function を起動する際、 Body Mapping Templates の設定が必要です。
+- Request Body Passthrough: Never
 - Content-Type: application/csp-report
-- Method Request passthrough の設定で生成された Template を設定
+- Generate template: Method Request passthrough の設定で生成された Template を設定
 
 上記のように設定することで動作を確認しています。
