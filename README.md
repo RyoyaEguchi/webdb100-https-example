@@ -34,3 +34,6 @@ API Gateway から Lambda function を起動する際、 Body Mapping Templates 
 - Generate template: Method Request passthrough の設定で生成された Template を設定
 
 上記のように設定することで動作を確認しています。
+
+## 注意点
+- 本サンプルで利用している各 AWS サービスは、利用時に利用料金がかかる可能性があります。利用開始前に必ず各サービスの料金ページをチェックするようにしてください。
